@@ -22,7 +22,7 @@ See the Docker documentaion for information on the different docker commands tha
 
 ## Docker hub
 
-Images of all the containers listed here are available on Docker Hub: https://hub.docker.com.
+Images of all the containers listed here are available on Docker Hub: https://hub.docker.com/u/fluiddyn.
 
 For example, running:
 
