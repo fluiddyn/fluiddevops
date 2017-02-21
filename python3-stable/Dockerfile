@@ -10,5 +10,6 @@ RUN apt-get install -y libfftw3-dev
 RUN pip install pyfftw -U
 
 RUN apt-get install -y libhdf5-openmpi-dev
+RUN apt-get install -y openmpi-bin
 RUN pip install mpi4py -U
 RUN pip install h5py -U
