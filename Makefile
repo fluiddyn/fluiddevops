@@ -9,4 +9,4 @@ push:
 	docker push fluiddyn/$(dir)
 
 run:
-	docker run -it fluiddyn/$(dir):$(tag) bash
+	docker run -it fluiddyn/$(dir) bash

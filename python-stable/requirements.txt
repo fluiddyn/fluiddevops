@@ -1,0 +1,7 @@
+numpy
+matplotlib
+scipy
+psutil
+pyfftw
+mpi4py
+h5py
