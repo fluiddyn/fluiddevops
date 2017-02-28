@@ -5,6 +5,9 @@ build:
 	cd $(dir) && docker build -t fluiddyn/$(dir) .
 	docker tag fluiddyn/$(dir) fluiddyn/$(dir):$(tag)
 
+onbuild:
+	cd $(dir) && docker build -t fluiddyn/$(dir):onbuild -f Dockerfile.onbuild .
+
 push:
 	docker push fluiddyn/$(dir)
 

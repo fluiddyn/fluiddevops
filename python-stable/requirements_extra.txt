@@ -1,0 +1,9 @@
+future
+tox
+codecov
+pyfftw
+mpi4py
+h5py
+ipython
+pillow
+pythran
