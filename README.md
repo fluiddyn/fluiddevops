@@ -1,6 +1,6 @@
 # FluidDevOps
 
-FluidDevOps is a small package which provides some console tools to make DevOps
+FluidDevOps is a small package which provides some console scripts to make DevOps
 easier.
 
 See directory `docker` for more on running Docker containers.
@@ -13,7 +13,7 @@ python setup.py develop
 
 ## Features
 
-- [x] `fluidmirror` to setup hg to git mirroring
+- `python -m fluiddevops.mirror` or `fluidmirror` to setup hg to git mirroring
 
 ```
 usage: fluidmirror [-h] [-c CFG] {list,clone,set-remote,pull,push} ...
