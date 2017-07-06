@@ -1,0 +1,21 @@
+syntax: glob
+
+*.pyd*
+*.pyc
+*~
+*tmp
+*cy.html
+*.swp
+*.swo
+*.out
+*.kate-swp
+\#*\#
+.spyderworkspace
+.spyderproject
+
+examples/fluid*
+*egg-info/*
+
+build/*
+dist/*.tar.gz
+dist*
