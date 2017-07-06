@@ -16,11 +16,11 @@ setup(
     name="fluiddevops",
     version=__version__,
     packages=find_packages(exclude=['docker', 'examples']),
-    install_requires=['mercurial', 'hg-git'],
-    entry_points={'console_scripts':
-                  ['fluidmirror = fluiddevops.mirror.__main__',
-                   ]
-                  },
+    install_requires=['mercurial', 'hg-git', 'configparser'],
+    entry_points={
+        'console_scripts':
+        ['fluidmirror = fluiddevops.mirror:main',
+         ]},
     author='Ashwin Vishnu Mohanan',
     author_email='avmo@kth.se',
     description="Console scripts to make DevOps easier.",

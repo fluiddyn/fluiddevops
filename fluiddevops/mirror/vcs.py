@@ -3,13 +3,15 @@ from __future__ import print_function
 import os
 import subprocess
 import configparser
-import hggit
 
 
-def _run(cmd):
+def _run(cmd, output=False):
     print(cmd)
     cmd = cmd.split()
-    subprocess.call(cmd)
+    if output:
+        return subprocess.check_output(cmd)
+    else:
+        subprocess.call(cmd)
 
 
 def clone(src, dest=None):
@@ -28,7 +30,6 @@ def set_remote(dest, src):
         config.add_section('extensions')
 
     config.set('extensions', 'hgext.bookmarks', '')
-    path_hggit = os.path.dirname(hggit.__file__)
     config.set('extensions', 'hggit', '')
     with open(path, 'w') as configfile:
         config.write(configfile)
@@ -38,14 +39,15 @@ def set_remote(dest, src):
     os.chdir('..')
 
 
-def pull(src, dest, update=True):
+def pull(src, dest, update=True, output=False):
     os.chdir(dest)
     cmd = 'hg pull ' + src
     if update:
         cmd += ' -u'
 
-    _run(cmd)
+    output = _run(cmd, output)
     os.chdir('..')
+    return output
 
 
 def push(dest, src):
@@ -54,3 +56,9 @@ def push(dest, src):
     _run('hg bookmark -r default master')
     _run('hg push github')
     os.chdir('..')
+
+
+def sync(src, pull_repo, push_repo):
+    output = pull(pull_repo, src, output=True)
+    if all([string not in output for string in ['no changes', 'abort']]):
+        push(push_repo, src)

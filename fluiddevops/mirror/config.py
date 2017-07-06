@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import configparser
 import sys
-from os.path import join
+from os.path import join, exists
 
 
 def get_repos(sections):
@@ -11,6 +11,9 @@ def get_repos(sections):
 
 def read_config(path, output=False):
     config = configparser.ConfigParser()
+    if not exists(path):
+        raise OSError(path + ' not found')
+
     config.read(path)
 
     pull_base = config['defaults']['pull_base']
