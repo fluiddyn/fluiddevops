@@ -6,7 +6,7 @@ from .config import read_config, get_repos
 from .vcs import clone, pull, push, set_remote, sync
 
 
-def parse_args():
+def get_parser():
     parser = argparse.ArgumentParser(prog='fluidmirror')
     parser.add_argument(
         '-c', '--cfg', help='config file', default='mirror.cfg')
@@ -37,7 +37,7 @@ def parse_args():
         'sync', help='sync all configured repositories')
     parser_sync.set_defaults(func=_sync_all)
 
-    return parser.parse_args()
+    return parser
 
 
 def _list(args):
@@ -51,13 +51,19 @@ def _config(args):
         dirname = os.curdir
 
     os.chdir(dirname)
-    return config
+    if config['defaults']['ssh'] != '':
+        hgopts = " -e '{}' ".format(
+            os.path.expandvars(config['defaults']['ssh']))
+    else:
+        hgopts = " "
+
+    return config, hgopts
 
 
 def _all(func, args, key='pull'):
-    config = _config(args)
+    config, hgopts = _config(args)
     for repo in get_repos(config.sections()):
-        func(config['repo:' + repo][key], repo)
+        func(config['repo:' + repo][key], repo, hgopts=hgopts)
 
 
 _clone_all = lambda args: _all(clone, args)
@@ -67,13 +73,15 @@ _push_all = lambda args: _all(push, args, 'push')
 
 
 def _sync_all(args):
-    config = _config(args)
+    config, hgopts = _config(args)
     for repo in get_repos(config.sections()):
-        sync(repo, config['repo:' + repo]['pull'], config['repo:' + repo]['push'])
+        sync(repo, config['repo:' + repo]['pull'],
+             config['repo:' + repo]['push'], hgopts=hgopts)
 
 
-def main():
-    args = parse_args()
+def main(*args):
+    parser = get_parser()
+    args = parser.parse_args(*args)
     args.func(args)
 
 

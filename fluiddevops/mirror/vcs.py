@@ -2,23 +2,24 @@ from __future__ import print_function
 
 import os
 import subprocess
+import shlex
 import configparser
 
 
 def _run(cmd, output=False):
     print(cmd)
-    cmd = cmd.split()
+    cmd = shlex.split(cmd)
     if output:
         return subprocess.check_output(cmd)
     else:
         subprocess.call(cmd)
 
 
-def clone(src, dest=None):
-    _run('hg clone {} {}'.format(src, dest))
+def clone(src, dest=None, hgopts=None):
+    _run('hg clone {} {} {}'.format(src, dest, hgopts))
 
 
-def set_remote(dest, src):
+def set_remote(dest, src, hgopts=None):
     path = os.path.join(src, '.hg', 'hgrc')
     config = configparser.ConfigParser()
     config.read(path)
@@ -39,9 +40,9 @@ def set_remote(dest, src):
     os.chdir('..')
 
 
-def pull(src, dest, update=True, output=False):
+def pull(src, dest, update=True, output=False, hgopts=None):
     os.chdir(dest)
-    cmd = 'hg pull ' + src
+    cmd = 'hg pull ' + src + hgopts
     if update:
         cmd += ' -u'
 
@@ -50,15 +51,15 @@ def pull(src, dest, update=True, output=False):
     return output
 
 
-def push(dest, src):
+def push(dest, src, hgopts=None):
     os.chdir(src)
     print(src)
     _run('hg bookmark -r default master')
-    _run('hg push github')
+    _run('hg push github ' + hgopts)
     os.chdir('..')
 
 
-def sync(src, pull_repo, push_repo):
-    output = pull(pull_repo, src, output=True)
+def sync(src, pull_repo, push_repo, hgopts=None):
+    output = pull(pull_repo, src, output=True, hgopts=hgopts)
     if all([string not in output for string in ['no changes', 'abort']]):
-        push(push_repo, src)
+        push(push_repo, src, hgopts=hgopts)

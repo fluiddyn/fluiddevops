@@ -14,6 +14,7 @@ syntax: glob
 .spyderproject
 
 examples/fluid*
+examples/_*
 *egg-info/*
 
 build/*

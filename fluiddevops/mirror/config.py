@@ -41,5 +41,6 @@ def read_config(path, output=False):
 
     return config
 
+
 if __name__ == '__main__':
     read_config(sys.argv[1])
