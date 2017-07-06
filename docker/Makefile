@@ -13,3 +13,6 @@ push:
 
 run:
 	docker run -it fluiddyn/$(dir) bash
+
+run_travis:
+	docker run -it quay.io/travisci/travis-python bash -c "su - travis"

@@ -1,4 +1,4 @@
-# FluidDocker
+# Building and running Docker containers
 
 This repository contains Dockerfiles for various FluidDyn containers.
 
@@ -17,6 +17,10 @@ To build a container, run:
 To launch a container, run:
 
 ```$ make run PATH```
+
+To launch Travis Ubuntu (precise) container for testing Python
+
+```$ make run_travis```
 
 See the Docker documentaion for information on the different docker commands that you can use.
 
