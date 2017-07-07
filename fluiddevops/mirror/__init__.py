@@ -52,10 +52,10 @@ def _config(args):
 
     os.chdir(dirname)
     if config['defaults']['ssh'] != '':
-        hgopts = " -e '{}' ".format(
+        hgopts = ' -e "{}" '.format(
             os.path.expandvars(config['defaults']['ssh']))
     else:
-        hgopts = " "
+        hgopts = ''
 
     return config, hgopts
 
