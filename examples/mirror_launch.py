@@ -16,7 +16,7 @@ from fluiddevops.mirror import main
 
 
 s = sched.scheduler(time.time, time.sleep)
-every = 15 * 60  # seconds
+every = 60 * 60  # seconds
 
 
 def job():

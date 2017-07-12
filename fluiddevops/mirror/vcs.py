@@ -10,7 +10,7 @@ def _run(cmd, output=False):
     print(cmd)
     cmd = shlex.split(cmd)
     if output:
-        return subprocess.check_output(cmd)
+        return subprocess.check_output(cmd).decode('utf8')
     else:
         subprocess.call(cmd)
 
@@ -55,7 +55,7 @@ def push(dest, src, hgopts=None):
     os.chdir(src)
     print(src)
     _run('hg bookmark -r default master')
-    _run('hg push github ' + hgopts)
+    _run('hg push ' + dest + hgopts)
     os.chdir('..')
 
 
