@@ -55,7 +55,7 @@ def push(dest, src, hgopts=None):
     os.chdir(src)
     print(src)
     _run('hg bookmark -r default master')
-    _run('hg push ' + dest + hgopts)
+    _run('hg push git+' + dest + hgopts)
     os.chdir('..')
 
 
