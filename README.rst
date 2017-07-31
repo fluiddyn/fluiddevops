@@ -4,7 +4,7 @@ FluidDevOps
 
 |release|
 
-.. |release| image:: https://img.shields.io/pypi/v/fluidddevops.svg
+.. |release| image:: https://img.shields.io/pypi/v/fluiddevops.svg
    :target: https://pypi.python.org/pypi/fluiddevops/
    :alt: Latest version
 
