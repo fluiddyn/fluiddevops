@@ -1,8 +1,18 @@
 from setuptools import setup, find_packages
 from runpy import run_path
+import os
+
+
+here = os.path.abspath(os.path.dirname(__file__))
 
 d = run_path('fluiddevops/_version.py')
 __version__ = d['__version__']
+
+# Get the long description from the relevant file
+with open(os.path.join(here, 'README.md')) as f:
+    long_description = f.read()
+lines = long_description.splitlines(True)
+long_description = ''.join(lines[2:])
 
 # Get the development status from the version string
 if 'a' in __version__:
@@ -17,6 +27,8 @@ setup(
     version=__version__,
     packages=find_packages(exclude=['docker', 'examples']),
     install_requires=['mercurial', 'hg-git', 'configparser'],
+    extras_requires={'mirror_bb': open(
+        'fluiddevops/mirror_bb/webhook-listener/REQUIREMENTS.txt').read().splitlines()},
     entry_points={
         'console_scripts':
         ['fluidmirror = fluiddevops.mirror:main',
@@ -24,6 +36,7 @@ setup(
     author='Ashwin Vishnu Mohanan',
     author_email='avmo@kth.se',
     description="Console scripts to make DevOps easier.",
+    long_description=long_description,
     license="CeCILL",
     keywords='DevOps, continuous integration, testing',
     url="http://bitbucket.org/gfdyn/fluiddevops",
