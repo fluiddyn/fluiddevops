@@ -9,10 +9,10 @@ d = run_path('fluiddevops/_version.py')
 __version__ = d['__version__']
 
 # Get the long description from the relevant file
-with open(os.path.join(here, 'README.md')) as f:
+with open(os.path.join(here, 'README.rst')) as f:
     long_description = f.read()
 lines = long_description.splitlines(True)
-long_description = ''.join(lines[2:])
+long_description = ''.join(lines[10:])
 
 # Get the development status from the version string
 if 'a' in __version__:
