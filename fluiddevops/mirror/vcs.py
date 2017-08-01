@@ -16,6 +16,10 @@ def _run(cmd, output=False):
 
 
 def clone(src, dest=None, hgopts=None):
+    if dest is not None and os.path.exists(dest):
+        print('Skipping', dest, ': directory exists!')
+        return
+
     _run('hg clone {} {} {}'.format(src, dest, hgopts))
 
 
@@ -51,15 +55,25 @@ def pull(src, dest, update=True, output=False, hgopts=None):
     return output
 
 
-def push(dest, src, hgopts=None):
+def push(dest, src, hgopts=None, branch='default'):
     os.chdir(src)
     print(src)
-    _run('hg bookmark -r default master')
+    if branch == 'default':
+        _run('hg bookmark -r default master')
+    else:
+        output = _run('hg branches', output=True)
+        if branch in output:
+            output = _run('hg bookmark -r ' + branch + ' branch-' + branch)
+        else:
+            print('Branch', branch, 'is closed or does not exist.')
+            os.chdir('..')
+            return
+
     _run('hg push git+' + dest + hgopts)
     os.chdir('..')
 
 
-def sync(src, pull_repo, push_repo, hgopts=None):
+def sync(src, pull_repo, push_repo, hgopts=None, branch='default'):
     output = pull(pull_repo, src, output=True, hgopts=hgopts)
     if all([string not in output for string in ['no changes', 'abort']]):
-        push(push_repo, src, hgopts=hgopts)
+        push(push_repo, src, hgopts=hgopts, branch=branch)

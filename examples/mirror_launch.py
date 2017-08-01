@@ -20,11 +20,13 @@ every = 3 * 60 * 60  # seconds
 
 
 def job():
-    print('fluidmirror sync will run every {} seconds'.format(every))
+    rnd_max = every * 0.1
+    print('fluidmirror sync will run every {} +/- {} seconds'.format(every, rnd_max))
     while True:
         print('Time: ', datetime.fromtimestamp(time.time()))
-        rnd_delay = random() * 20
-        s.enter(every + rnd_delay, 1, main, [['sync']])
+        rnd_delay = 2 * (random() - 0.5) * rnd_max
+        s.enter(every + rnd_delay * 1, 1, main, [['sync']])
+        s.enter(every + rnd_delay * 2, 1, main, [['sync', '-b', 'dev']])
         s.run()
 
 
