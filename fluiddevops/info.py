@@ -35,9 +35,9 @@ def _get_hg_repo(path_dir):
 def make_dict_about(pkg):
     about_pkg = OrderedDict([
         ('installed', None),
-        ('version', None),
-        ('local path', None),
-        ('remote path', None),
+        ('version', ''),
+        ('local path', ''),
+        ('remote path', ''),
     ])
     try:
         pkg = _import(pkg)
