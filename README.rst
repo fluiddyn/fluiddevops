@@ -44,3 +44,21 @@ Features
     optional arguments:
       -h, --help            show this help message and exit
       -c CFG, --cfg CFG     config file
+
+- ``python -m fluiddevops.info`` or ``fluidinfo`` to get information on
+  currently installed FluidDyn packages.
+
+::
+
+     $ fluidinfo
+     Package                         Installed                       Version                         Local Path                      Remote Path                     
+     =======                         =========                       =======                         ==========                      ===========                     
+     fluiddyn                        True                            0.0.14                          /scratch/a...fluidmeta/fluiddyn ssh://hg@b...org/gfdyn/fluiddyn 
+     fluidsim                        True                            0.0.5a0                         /scratch/a...fluidmeta/fluidsim ssh://hg@b...org/gfdyn/fluidsim 
+     fluidlab                        False                           None                            None                            None                            
+     fluidimage                      False                           None                            None                            None                            
+     fluidfft                        False                           None                            None                            None                            
+     fluidcoriolis                   False                           None                            None                            None                            
+     fluiddevops                     True                            0.0.0b1                         /scratch/a...idmeta/fluiddevops ssh://hg@b.../gfdyn/fluiddevops 
+     fluidsim-scripts                False                           None                            None                            None                            
+     fluidkth                        False                           None                            None                            None      

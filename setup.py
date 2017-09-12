@@ -27,11 +27,12 @@ setup(
     version=__version__,
     packages=find_packages(exclude=['docker', 'examples']),
     install_requires=['mercurial', 'hg-git', 'configparser'],
-    extras_requires={'mirror_bb': open(
-        'fluiddevops/mirror_bb/webhook-listener/REQUIREMENTS.txt').read().splitlines()},
+    # extras_requires={'mirror_bb': open(
+    #     'fluiddevops/mirror_bb/webhook-listener/REQUIREMENTS.txt').read().splitlines()},
     entry_points={
         'console_scripts':
         ['fluidmirror = fluiddevops.mirror:main',
+         'fluidinfo = fluiddevops.info:main',
          ]},
     author='Ashwin Vishnu Mohanan',
     author_email='avmo@kth.se',
