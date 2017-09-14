@@ -26,9 +26,12 @@ setup(
     name="fluiddevops",
     version=__version__,
     packages=find_packages(exclude=['docker', 'examples']),
-    install_requires=['mercurial', 'hg-git', 'configparser'],
-    # extras_requires={'mirror_bb': open(
-    #     'fluiddevops/mirror_bb/webhook-listener/REQUIREMENTS.txt').read().splitlines()},
+    install_requires=['mercurial', 'hg-git', 'configparser', 'fluiddyn'],
+    extras_requires={
+        'info': 'py-cpuinfo',
+        # 'mirror_bb': open(
+        #     'fluiddevops/mirror_bb/webhook-listener/REQUIREMENTS.txt').read().splitlines()},
+    },
     entry_points={
         'console_scripts':
         ['fluidmirror = fluiddevops.mirror:main',
