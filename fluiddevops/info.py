@@ -68,6 +68,17 @@ def make_dict_about(pkg):
         return about_pkg
 
 
+def get_info_python():
+    info_py = OrderedDict.fromkeys(
+        ['version', 'implementation', 'compiler']
+    )
+    for k in info_py:
+        func = getattr(platform, 'python_' + k)
+        info_py[k] = func()
+
+    return info_py
+
+
 def get_info(pkgs=None):
     if pkgs is None:
         pkgs = OrderedDict.fromkeys(
@@ -98,7 +109,12 @@ def get_info_software():
     except:
         pass
 
-    info_sw['CC'] = platform.python_compiler()
+    cc = os.getenv('CC')
+    if cc is None:
+        cc = 'gcc'
+
+    info_sw['CC'] = subprocess.check_output(shlex.split(
+        cc + ' --version')).splitlines()[0]
     info_sw['MPI'] = subprocess.check_output(shlex.split(
         'mpirun --version')).splitlines()[0]
     return info_sw
@@ -170,12 +186,13 @@ def save_sys_info(filename='sys_info.xml'):
     sys_info = ParamContainer('sys_info')
     info_sw = get_info_software()
     info_hw = get_info_hardware()
+    info_py = get_info_python()
     pkgs = get_info()
     pkgs_third_party = get_info_third_party()
 
     sys_info._set_child('software', info_sw)
     sys_info._set_child('hardware', info_hw)
-    sys_info._set_child('python')
+    sys_info._set_child('python', info_py)
     for pkg in pkgs:
         sys_info.python._set_child(pkg, pkgs[pkg])
 
