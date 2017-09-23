@@ -17,7 +17,7 @@ def _get_hg_repo(path_dir):
     pwd = os.curdir
     os.chdir(path_dir)
     cmd = shlex.split('hg paths')
-    output = subprocess.check_output(cmd)
+    output = subprocess.check_output(cmd).decode('utf-8')
     os.chdir(pwd)
     try:
         output = output.splitlines()[0]
