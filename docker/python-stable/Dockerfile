@@ -57,12 +57,13 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY requirements.txt /usr/src/app/
+COPY ../requirements.txt /usr/src/app/
 RUN pip install --no-cache-dir -U -r requirements.txt
 RUN pip3 install --no-cache-dir -U -r requirements.txt
-COPY requirements_extra.txt /usr/src/app/
+COPY ../requirements_extra.txt /usr/src/app/
 RUN pip install --no-cache-dir -U -r requirements_extra.txt
 RUN pip3 install --no-cache-dir -U -r requirements_extra.txt
 COPY . /usr/src/app
 
-RUN echo 'backend      : agg' > /root/.config/matplotlib/matplotlibrc
+RUN mkdir -p /root/.config/matplotlib \
+	&&  echo 'backend      : agg' > /root/.config/matplotlib/matplotlibrc
