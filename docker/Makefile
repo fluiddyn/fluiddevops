@@ -1,21 +1,25 @@
-dir := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+image := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 tag := $(shell date -I'date'| tr -d "[:punct:]")
 
 start:
 	systemctl start docker
 
 build:
-	cd $(dir) && docker build -t fluiddyn/$(dir) .
-	docker tag fluiddyn/$(dir) fluiddyn/$(dir):$(tag)
+	docker build -f $(image).Dockerfile -t fluiddyn/$(image) .
+	docker tag fluiddyn/$(image) fluiddyn/$(image):$(tag)
+
+build_nocache:
+	docker build -f $(image).Dockerfile -t fluiddyn/$(image) . --no-cache
+	docker tag fluiddyn/$(image) fluiddyn/$(image):$(tag)
 
 onbuild:
-	cd $(dir) && docker build -t fluiddyn/$(dir):onbuild -f Dockerfile.onbuild .
+	docker build -f $(image).onbuild.Dockerfile -t fluiddyn/$(image):onbuild .
 
 push:
-	docker push fluiddyn/$(dir)
+	docker push fluiddyn/$(image)
 
 run:
-	docker run -it fluiddyn/$(dir) bash
+	docker run -it fluiddyn/$(image) bash
 
 run_travis:
 	docker run -it travisci/ci-python bash -c "su - travis"
