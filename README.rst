@@ -49,16 +49,21 @@ Features
   currently installed FluidDyn packages.
 
 ::
-
      $ fluidinfo
-     Package                         Installed                       Version                         Local Path                      Remote Path                     
-     =======                         =========                       =======                         ==========                      ===========                     
-     fluiddyn                        True                            0.0.14                          /scratch/a...fluidmeta/fluiddyn ssh://hg@b...org/gfdyn/fluiddyn 
-     fluidsim                        True                            0.0.5a0                         /scratch/a...fluidmeta/fluidsim ssh://hg@b...org/gfdyn/fluidsim 
-     fluidlab                        False                           None                            None                            None                            
-     fluidimage                      False                           None                            None                            None                            
-     fluidfft                        False                           None                            None                            None                            
-     fluidcoriolis                   False                           None                            None                            None                            
-     fluiddevops                     True                            0.0.0b1                         /scratch/a...idmeta/fluiddevops ssh://hg@b.../gfdyn/fluiddevops 
-     fluidsim-scripts                False                           None                            None                            None                            
-     fluidkth                        False                           None                            None                            None      
+     Package                 Installed               Version                 Local Path              Remote Path             
+     =======                 =========               =======                 ==========              ===========             
+     fluiddyn                True                    0.1.4                   /home/avmo...a/fluiddyn ssh://hg@b...n/fluiddyn 
+     fluidsim                True                    0.0.0b3                 /home/avmo...a/fluidsim ssh://hg@b...n/fluidsim 
+     fluidlab                False                                                                                           
+     fluidimage              True                    0.0.2                   /home/avmo...fluidimage ssh://hg@b...fluidimage 
+     fluidfft                False                                                                                           
+     fluidcoriolis           False                                                                                           
+     fluiddevops             True                    0.0.0b3                 /home/avmo...luiddevops ssh://hg@b...luiddevops 
+     numpy                   True                    1.13.1                  /usr/lib/p...ages/numpy                         
+     cython                  True                    0.26.1                  /usr/lib/p...e-packages                         
+     mpi4py                  True                    2.0.0                   /scratch/a...ges/mpi4py                         
+     pythran                 False                                                                                           
+     pyfftw                  True                    0.10.3.dev0+e827cb5     /scratch/a...egg/pyfftw                         
+     matplotlib              True                    2.1.0rc1                /scratch/a...matplotlib                         
+     scipy                   True                    0.19.1                  /usr/lib/p...ages/scipy                         
+     skimage                 True                    0.13.0                  /scratch/a...es/skimage                         
