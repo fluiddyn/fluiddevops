@@ -49,6 +49,7 @@ Features
   currently installed FluidDyn packages.
 
 ::
+
     $ fluidinfo
     Package                 Installed               Version                 Local Path              Remote Path             
     =======                 =========               =======                 ==========              ===========             
