@@ -13,6 +13,7 @@ pipelines:
   default:
     - step:
         script: # Modify the commands below to build your repository.
+          - pip install --user mako
           # Set $DOCKER_HUB_USERNAME and $DOCKER_HUB_PASSWORD as environment variables in repository settings
           - docker version
           # authenticate with the Docker Hub registry
