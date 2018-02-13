@@ -8,20 +8,24 @@ from .vcs import clone, pull, push, set_remote, sync
 
 def _add_arg_repo(parser):
     parser.add_argument(
-        '-r', '--repo', help='repository to act on, default: "all"', default='all')
+        '-r', '--repo', help='repository to act on, default: "all"',
+        default='all')
     return parser
 
 
 def _add_arg_branch(parser):
     parser.add_argument(
-        '-b', '--branch', help='branch to act on, default: "default"', default='default')
+        '-b', '--branch', help='branch to act on, default: "default"',
+        default='default')
     return parser
 
 
 def get_parser():
     parser = argparse.ArgumentParser(
         prog='fluidmirror',
-        description='works on a specific / all configured repositories (default)')
+        description=(
+            'works on a specific / all configured repositories (default)')
+    )
     parser.add_argument(
         '-c', '--cfg', help='config file', default='mirror.cfg')
     subparsers = parser.add_subparsers(help='sub-command')

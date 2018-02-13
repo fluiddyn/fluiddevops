@@ -1,11 +1,21 @@
 dir := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 tag := $(shell date -I'date'| tr -d "[:punct:]")
 
-build:
+
+dockermako:
+	python make_files_with_mako.py
+
+cleanmako:
+	python -c 'from make_files_with_mako import clean; clean()'
+
+requirements:
+	cp -f requirements.txt requirements_extra.txt $(dir)/
+
+build: dockermako requirements
 	cd $(dir) && docker build -t fluiddyn/$(dir) .
 	docker tag fluiddyn/$(dir) fluiddyn/$(dir):$(tag)
 
-onbuild:
+onbuild: dockermako requirements
 	cd $(dir) && docker build -t fluiddyn/$(dir):onbuild -f Dockerfile.onbuild .
 
 push:
