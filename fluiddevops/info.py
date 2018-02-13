@@ -22,6 +22,7 @@ COL_WIDTH = 32
 
 
 def _get_hg_repo(path_dir):
+    """Parse `hg paths` command to find remote path."""
     if path_dir == '':
         return ''
 
@@ -44,6 +45,7 @@ def _get_hg_repo(path_dir):
 
 
 def make_dict_about(pkg):
+    """Make dictionary with all collected information about one package."""
     about_pkg = OrderedDict([
         ('installed', None),
         ('version', ''),
@@ -69,6 +71,7 @@ def make_dict_about(pkg):
 
 
 def get_info_python():
+    """Python information."""
     info_py = OrderedDict.fromkeys(
         ['version', 'implementation', 'compiler']
     )
@@ -79,12 +82,8 @@ def get_info_python():
     return info_py
 
 
-def get_info(pkgs=None):
-    if pkgs is None:
-        pkgs = OrderedDict.fromkeys(
-            ['fluiddyn', 'fluidsim', 'fluidlab', 'fluidimage', 'fluidfft',
-             'fluidcoriolis', 'fluiddevops', 'fluidkth']
-        )
+def _get_info(pkgs):
+    """Create a dictionary of dictionaries for all packages."""
     for pkg in pkgs:
         dict_pkg = make_dict_about(pkg)
         pkgs[pkg] = dict_pkg
@@ -92,15 +91,26 @@ def get_info(pkgs=None):
     return pkgs
 
 
+def get_info_fluiddyn():
+    """Create a dictionary of dictionaries for all FluidDyn packages."""
+    pkgs = OrderedDict.fromkeys(
+        ['fluiddyn', 'fluidsim', 'fluidlab', 'fluidimage', 'fluidfft',
+         'fluidcoriolis', 'fluiddevops']
+    )
+    return _get_info(pkgs)
+
+
 def get_info_third_party():
+    """Create a dictionary of dictionaries for all third party packages."""
     pkgs = OrderedDict.fromkeys(
         ['numpy', 'cython', 'mpi4py', 'pythran', 'pyfftw', 'matplotlib',
          'scipy', 'skimage']
     )
-    return get_info(pkgs)
+    return _get_info(pkgs)
 
 
 def get_info_software():
+    """Create a dictionary for compiler and OS information."""
     uname = platform.uname()
     info_sw = dict(zip(
         ['system', 'hostname', 'kernel'], uname))
@@ -121,6 +131,7 @@ def get_info_software():
 
 
 def get_info_hardware():
+    """Create a dictionary for CPU information."""
     try:
         from cpuinfo import cpuinfo
 
@@ -143,10 +154,24 @@ def get_info_hardware():
     return info_hw
 
 
-def print_sys_info():
-    pkgs = get_info()
+def reset_col_width():
+    """Detect total width of the current terminal."""
+    global COL_WIDTH
+    nb_cols = 5
+    try:
+        tot_width = int(subprocess.check_output(['tput', 'cols']))
+        COL_WIDTH = tot_width // 5
+    except:
+        pass
 
+
+def print_sys_info():
+    """Print package information as a formatted table."""
+    reset_col_width()
+
+    pkgs = get_info_fluiddyn()
     pkgs_keys = list(pkgs)
+
     title = ['Package']
     title.extend([col.replace('_', ' ').title() for col in pkgs[pkgs_keys[0]]])
     title2 = ['=' * len(col) for col in title]
@@ -182,12 +207,14 @@ def print_sys_info():
         print_pkg(about_pkg)
 
 
-def save_sys_info(filename='sys_info.xml'):
+def save_sys_info(path_dir='.', filename='sys_info.xml'):
+    """Save all system information as a xml file."""
+
     sys_info = ParamContainer('sys_info')
     info_sw = get_info_software()
     info_hw = get_info_hardware()
     info_py = get_info_python()
-    pkgs = get_info()
+    pkgs = get_info_fluiddyn()
     pkgs_third_party = get_info_third_party()
 
     sys_info._set_child('software', info_sw)
@@ -199,7 +226,8 @@ def save_sys_info(filename='sys_info.xml'):
     for pkg in pkgs_third_party:
         sys_info.python._set_child(pkg, pkgs_third_party[pkg])
 
-    sys_info._save_as_xml(filename, find_new_name=True)
+    path = os.path.join(path_dir, filename)
+    sys_info._save_as_xml(path, find_new_name=True)
 
 
 def main():
@@ -210,10 +238,14 @@ def main():
     parser.add_argument(
         '-s', '--save', help='saves system information to an xml file',
         action='store_true')
+    parser.add_argument(
+        '-o', '--output-dir', help='save to directory', default=None)
 
     args = parser.parse_args()
     if args.save:
         save_sys_info()
+    elif args.output_dir is not None:
+        save_sys_info(args.output_dir)
     else:
         print_sys_info()
 

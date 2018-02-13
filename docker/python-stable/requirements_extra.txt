@@ -1,9 +1,0 @@
-future
-tox
-pyfftw
-mpi4py
-h5py
-ipython
-pillow
-pythran
-scikit-image

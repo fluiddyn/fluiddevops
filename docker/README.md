@@ -43,3 +43,11 @@ FluidDyn.
 
 And the image will be downloaded from Docker Hub if it is not already present on your machine
 and then run.
+
+## Ingredients
+
+Note: Extra libraries (from official Debian Jessie repos) are not the most
+recent versions.
+
+see `apt_requirements.txt`, `requirements.txt` and `requirements_extra.txt`
+for the list of packages being pre-installed into the Docker images.

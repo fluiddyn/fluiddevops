@@ -8,9 +8,9 @@ from mako.template import Template
 here = os.path.abspath(os.path.dirname(__file__))
 
 files = {
-    join(here, 'python2-stable', 'Dockerfile'): dict(
+    join(here, 'python2-stable.Dockerfile'): dict(
         pip='pip2', image='python:2.7'),
-    join(here, 'python3-stable', 'Dockerfile'): dict(
+    join(here, 'python3-stable.Dockerfile'): dict(
         pip='pip3', image='python:3.6-stretch'),
 }
 

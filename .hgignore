@@ -21,5 +21,4 @@ build/*
 dist/*.tar.gz
 dist*
 
-docker/python?-stable/Dockerfile
-docker/python?-stable/requirements*.txt
+docker/python?-stable.Dockerfile
