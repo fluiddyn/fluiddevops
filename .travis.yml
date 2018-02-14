@@ -8,8 +8,10 @@ env:
 services:
   - docker
 
-before_install:
+install:
   - pip install mako
+
+script:
   - docker version
   - cd docker
   - make build image=$IMAGE_NAME
