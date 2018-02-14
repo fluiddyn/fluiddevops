@@ -13,11 +13,11 @@ Go to https://www.docker.com for information on how to install docker.
 
 To build a container, run:
 
-```$ make build PATH```
+```$ make build image=python3-stable```
 
 To launch a container, run:
 
-```$ make run PATH```
+```$ make run image=python3-stable```
 
 To launch Travis Ubuntu (precise) container for testing Python
 
@@ -33,13 +33,13 @@ https://hub.docker.com/u/fluiddyn.
 
 For example, running:
 
-```$ docker pull fluiddyn/python-stable```
+```$ docker pull fluiddyn/python3-stable```
 
 will retrieve the Docker official python 3.6 installation along with extra
 libraries from Debian Jessie repos and python packages from PyPI required for
 FluidDyn.
 
-```$ docker run -it fluiddyn/python-stable /bin/bash```
+```$ docker run -it fluiddyn/python3-stable /bin/bash```
 
 And the image will be downloaded from Docker Hub if it is not already present on your machine
 and then run.

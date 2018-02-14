@@ -1,4 +1,4 @@
-image := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+image ?= python3-stable
 tag := $(shell date -I'date'| tr -d "[:punct:]")
 
 start:
