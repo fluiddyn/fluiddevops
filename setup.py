@@ -35,7 +35,6 @@ setup(
     entry_points={
         'console_scripts':
         ['fluidmirror = fluiddevops.mirror:main',
-         'fluidinfo = fluiddevops.info:main',
          ]},
     author='Ashwin Vishnu Mohanan',
     author_email='avmo@kth.se',
