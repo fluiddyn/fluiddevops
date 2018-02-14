@@ -41,3 +41,5 @@ RUN ${pip} install --no-cache-dir --user -U -r requirements_extra.txt
 RUN mkdir -p $HOME/.config/matplotlib
 RUN echo 'backend      : agg' > $HOME/.config/matplotlib/matplotlibrc
 ENV LD_LIBRARY_PATH=$HOME/.local/lib
+ENV PATH=$PATH:$HOME/.local/bin
+ENV CPATH=$CPATH:$HOME/.local/include
