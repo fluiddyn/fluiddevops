@@ -32,3 +32,11 @@ run_travis:
 
 run_travis_old:
 	docker run -it quay.io/travisci/travis-python bash -c "su - travis"
+
+cleancontainers:
+	for cont in $$(docker ps -a | awk 'NR>1{print $$1}'); do docker rm $$cont; done
+
+cleanimages:
+	docker rmi -f $$(docker images -qf "dangling=true")
+
+cleanall: cleanmako cleancontainers cleanimages
