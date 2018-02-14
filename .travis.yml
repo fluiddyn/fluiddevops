@@ -9,7 +9,7 @@ services:
   - docker
 
 before_install:
-  - pip install --user mako
+  - pip install mako
   - docker version
   - cd docker
   - make build image=$IMAGE_NAME
