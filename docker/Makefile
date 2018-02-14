@@ -25,7 +25,7 @@ push:
 	docker push fluiddyn/$(image)
 
 run:
-	docker run -it fluiddyn/$(image) bash
+	docker run --restart=always -it fluiddyn/$(image) bash
 
 run_travis:
 	docker run -it travisci/ci-python bash -c "su - travis"

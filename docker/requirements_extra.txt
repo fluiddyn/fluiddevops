@@ -6,7 +6,6 @@ h5py
 h5netcdf
 ipython
 pillow
-pythran
 scikit-image
 mako
 imageio
