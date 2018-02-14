@@ -10,3 +10,4 @@ pythran
 scikit-image
 mako
 imageio
+pandas
